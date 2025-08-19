@@ -3748,7 +3748,7 @@ def Gillespie_Arbitrary(G, spontaneous_transition_graph,
   
 def Gillespie_simple_contagion(G, spontaneous_transition_graph, 
               nbr_induced_transition_graph, IC, return_statuses, 
-              tmin = 0,  tmax=100, I_frac_switch=0.1, 
+              tmin = 0,  tmax=100, I_frac_switch=1, 
               spont_kwargs = None, nbr_kwargs=None, policy_function = None, 
               pf_kwargs = None, return_full_data = False, sim_kwargs = None):
 
@@ -3875,7 +3875,6 @@ def Gillespie_simple_contagion(G, spontaneous_transition_graph,
     t = t+delay
     
     pop = data['S'][-1]+data['E'][-1]+data['I'][-1]+data['R'][-1] 
-    print(pop)
     
     while total_rate>0 and t<tmax:
         times.append(t)
@@ -4005,10 +4004,9 @@ def Gillespie_simple_contagion(G, spontaneous_transition_graph,
             delay = float('Inf')
             
         t += delay
-        print('hey')
-        if np.array(data['I'].sum() > 10):
-            
-            print(np.array(data['I']))
+        
+        # switching
+        if data['I'][-1] > pop*I_frac_switch:
             returnval = []
             times = np.array(times)
             returnval.append(times)
