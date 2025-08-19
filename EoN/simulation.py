@@ -2715,7 +2715,7 @@ def fast_SIS(G, tau, gamma, initial_infecteds=None, rho = None, tmin=0, tmax=100
 
     ::
 
-
+Gi
         import networkx as nx
         import EoN
         import matplotlib.pyplot as plt
@@ -3873,6 +3873,9 @@ def Gillespie_simple_contagion(G, spontaneous_transition_graph,
     else:
         delay = float('Inf')
     t = t+delay
+    
+    pop = data['S'][-1]+data['E'][-1]+data['I'][-1]+data['R'][-1] 
+    print(pop)
     
     while total_rate>0 and t<tmax:
         times.append(t)
