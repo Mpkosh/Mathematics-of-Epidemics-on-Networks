@@ -4313,7 +4313,7 @@ def Gillespie_simple_contagion(G, spontaneous_transition_graph,
             delay = float('Inf')
             
         t += delay
-        
+        print('hey')
         if np.array(data['I'].sum() > 10):
             
             print(np.array(data['I']))
