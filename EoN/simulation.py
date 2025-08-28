@@ -4006,6 +4006,7 @@ def Gillespie_simple_contagion(G, spontaneous_transition_graph,
         t += delay
         
         # ______ Switching mechanism
+        print(frac_pop)
         if frac_pop == 'Infected':
             chosen_pop = data['I'][-1]
             
@@ -4017,6 +4018,8 @@ def Gillespie_simple_contagion(G, spontaneous_transition_graph,
                 # Inc_t = (E_t-1 - E_t) - (S_t - S_t-1)
                 chosen_pop = (data['E'][-2] - data['E'][-1]
                              ) - (data['S'][-1] - data['S'][-2])
+        print(chosen_pop)
+        print(data['E'])
         
         if chosen_pop > pop*I_frac_switch:
             returnval = []
