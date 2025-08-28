@@ -4006,13 +4006,12 @@ def Gillespie_simple_contagion(G, spontaneous_transition_graph,
         t += delay
         
         # ______ Switching mechanism
-        # switching based on compartment I
         if frac_pop == 'Infected':
             chosen_pop = data['I'][-1]
             
         elif frac_pop == 'Incidence':
             # if we have only 1 day so far
-            if data['E'].shape[0]<2:
+            if len(data['E'])<2:
                 chosen_pop = 0
             else:
                 # Inc_t = (E_t-1 - E_t) - (S_t - S_t-1)
