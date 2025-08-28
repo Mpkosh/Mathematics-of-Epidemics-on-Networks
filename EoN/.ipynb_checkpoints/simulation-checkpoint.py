@@ -3748,7 +3748,7 @@ def Gillespie_Arbitrary(G, spontaneous_transition_graph,
   
 def Gillespie_simple_contagion(G, spontaneous_transition_graph, 
               nbr_induced_transition_graph, IC, return_statuses, 
-              tmin = 0,  tmax=100, I_frac_switch=1, 
+              tmin = 0,  tmax=100, I_frac_switch=1, frac_pop='Infected',
               spont_kwargs = None, nbr_kwargs=None, policy_function = None, 
               pf_kwargs = None, return_full_data = False, sim_kwargs = None):
 
@@ -4005,8 +4005,21 @@ def Gillespie_simple_contagion(G, spontaneous_transition_graph,
             
         t += delay
         
-        # switching
-        if data['I'][-1] > pop*I_frac_switch:
+        # ______ Switching mechanism
+        # switching based on compartment I
+        if frac_pop == 'Infected':
+            chosen_pop = data['I'][-1]
+            
+        elif frac_pop == 'Incidence':
+            # if we have only 1 day so far
+            if data['E'].shape[0]<2:
+                chosen_pop = 0
+            else:
+                # Inc_t = (E_t-1 - E_t) - (S_t - S_t-1)
+                chosen_pop = (data['E'][-2] - data['E'][-1]
+                             ) - (data['S'][-1] - data['S'][-2])
+        
+        if chosen_pop > pop*I_frac_switch:
             returnval = []
             times = np.array(times)
             returnval.append(times)
