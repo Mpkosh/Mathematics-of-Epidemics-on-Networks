@@ -4019,7 +4019,7 @@ def Gillespie_simple_contagion(G, spontaneous_transition_graph,
                 chosen_pop = (data['E'][-2] - data['E'][-1]
                              ) - (data['S'][-1] - data['S'][-2])
         print(chosen_pop)
-        print(data['E'])
+        print(len(data['E']), data['I'][-1])
         
         if chosen_pop > pop*I_frac_switch:
             returnval = []
